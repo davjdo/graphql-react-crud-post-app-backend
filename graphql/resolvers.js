@@ -33,7 +33,7 @@ module.exports = {
 		const user = new User({
 			email: userInput.email,
 			name: userInput.name,
-			password: userInput.password
+			password: hashedPw
 		});
 		const createdUser = await user.save();
 		return { ...createdUser._doc, _id: createdUser._id.toString() };
@@ -45,13 +45,13 @@ module.exports = {
 			error.code = 401;
 			throw error;
 		}
-		const isEqual = bcrypt.compare(password, user.password);
+		const isEqual = await bcrypt.compare(password, user.password);
 		if (!isEqual) {
 			const error = new Error('Password is incorrect.');
 			error.code = 401;
 			throw error;
 		}
-		const token = await jwt.sign(
+		const token = jwt.sign(
 			{
 				userId: user._id.toString(),
 				email: user.email
