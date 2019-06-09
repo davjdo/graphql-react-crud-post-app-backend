@@ -128,7 +128,7 @@ module.exports = {
 			.limit(perPage)
 			.populate('creator');
 		return {
-			posts: post.map(p => {
+			posts: posts.map(p => {
 				return {
 					...p._doc,
 					_id: p._id.toString(),
