@@ -202,7 +202,7 @@ module.exports = {
 		const updatedPost = await post.save();
 		return {
 			...updatedPost._doc,
-			_id: updatePost._id.toString(),
+			_id: updatedPost._id.toString(),
 			createdAt: updatedPost.createdAt.toISOString(),
 			updatedAt: updatedPost.updatedAt.toISOString()
 		};
